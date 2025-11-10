@@ -269,7 +269,17 @@ If edits pass validation → saved; if withdraw → state Withdrawn; home refres
 <img width="481" height="651" alt="Screenshot 2025-11-10 164831" src="https://github.com/user-attachments/assets/6bc5d4cc-2210-4dd4-bfd3-4f29f1e29dbd" />
 
 ### 9.6 Sequence Diagram
-<img width="567" height="758" alt="Screenshot 2025-11-10 165148" src="https://github.com/user-attachments/assets/c29f7fc3-4ada-4e1f-9ee0-620773b18e5f" />
+<img width="567" height="758" alt="Screenshot 2025-11-10 165148" src="https://github.com/user-attachments/assets/9874f072-ab93-47ef-8986-7c78c20d29c0" />
+
+---
+## 10. DB Change Check — Summary (table)
+| Flow            | Table         | Change                                                        |
+|-----------------|---------------|----------------------------------------------------------------|
+| Cancel Approved | request       | update `state = 'Cancelled'`                                   |
+| Cancel Approved | grant_balance | add cancelled hours back into employee’s allowance            |
+| Cancel Approved | request_hist  | insert row (from Approved → Cancelled)                        |
+| Edit Pending    | request       | modify fields: dates / hours / title / notes                  |
+| Edit Pending    | request_hist  | insert row (old version snapshot → new version snapshot)      |
 
 
 
