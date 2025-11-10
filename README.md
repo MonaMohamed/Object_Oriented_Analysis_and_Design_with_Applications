@@ -251,3 +251,26 @@ Request becomes Cancelled; time allowance returned; manager notified.
 ### 8.6 Sequence Diagram
 <img width="702" height="623" alt="Screenshot 2025-11-10 163013" src="https://github.com/user-attachments/assets/0956401e-295b-4d1b-96f1-b90b03b1508d" />
 
+---
+## 9. Use Case: Edit Pending Request
+### 9.1 Actor:
+Employee
+
+### 9.2 Goal:
+Edit title/comments/dates of a PendingApproval request; or Withdraw it.
+
+### 9.3 Preconditions:
+Employee authenticated; target request is PendingApproval.
+
+### 9.4 Post Conditions:
+If edits pass validation → saved; if withdraw → state Withdrawn; home refreshed.
+
+### 9.5 Flowchart
+<img width="481" height="651" alt="Screenshot 2025-11-10 164831" src="https://github.com/user-attachments/assets/6bc5d4cc-2210-4dd4-bfd3-4f29f1e29dbd" />
+
+### 9.6 Sequence Diagram
+<img width="567" height="758" alt="Screenshot 2025-11-10 165148" src="https://github.com/user-attachments/assets/c29f7fc3-4ada-4e1f-9ee0-620773b18e5f" />
+
+
+
+
