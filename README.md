@@ -230,7 +230,7 @@ IF Manager presses Reject
 ```
 ### 7.6 State Machine — Request
 <img width="500" height="500" alt="Untitled diagram-2025-11-10-140217" src="https://github.com/user-attachments/assets/9e28fad5-2eae-4524-87f7-8d2cb76ec201" />
----
+
 ---
 ## 8. Use Case: Cancel Request
 ### 8.1 Actor:
@@ -245,4 +245,9 @@ Employee is authenticated (via portal SSO). A target request exists in state App
 ### 8.4 Post Conditions:
 Request becomes Cancelled; time allowance returned; manager notified.
 
-### 8.5 Flowchart (external image)
+### 8.5 Flowchart
+<img width="800" height="800" alt="Untitled diagram-2025-11-10-140217" src="https://github.com/user-attachments/assets/b9e0eec4-e2c4-4745-ae7c-c562529a96ef" />
+
+### 8.6 Sequence Diagram
+<img width="702" height="623" alt="Screenshot 2025-11-10 163013" src="https://github.com/user-attachments/assets/0956401e-295b-4d1b-96f1-b90b03b1508d" />
+
