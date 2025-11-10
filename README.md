@@ -232,13 +232,17 @@ IF Manager presses Reject
 <img width="500" height="500" alt="Untitled diagram-2025-11-10-140217" src="https://github.com/user-attachments/assets/9e28fad5-2eae-4524-87f7-8d2cb76ec201" />
 ---
 ---
-## 7. Use Case: Cancel Request
-### 7.1 Actor: 
+## 8. Use Case: Cancel Request
+### 8.1 Actor:
 Employee
-### 7.2 Goal: 
+
+### 8.2 Goal:
 Cancel an Approved request that is in the future or recent past (previous 5 business days).
-### 7.3 Preconditions: 
+
+### 8.3 Preconditions:
 Employee is authenticated (via portal SSO). A target request exists in state Approved and within allowed window.
-### 7.4 Post Conditions: 
+
+### 8.4 Post Conditions:
 Request becomes Cancelled; time allowance returned; manager notified.
-### 7.5 flowchart
+
+### 8.5 Flowchart (external image)
