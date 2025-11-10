@@ -91,11 +91,9 @@ if employee.action == "new_request":
         show_home()
 ```
 
----
+### 7.5 UI Sketch — Requests Pages
 
-## UI Sketch — Requests Pages
-
-### Employee Home Screen
+#### Employee Home Screen
 
 ```
 +---------------------------------------------------------------+
@@ -126,7 +124,7 @@ Actions vary by state:
 [ Create New Request ]
 ```
 
-### Manager Home Screen
+#### Manager Home Screen
 
 ```
 +---------------------------------------------------------------+
@@ -154,11 +152,10 @@ Pending Approvals (direct reports)
 
 Reject requires comment entry (modal)
 ```
----
 
-## Pseudo-Code — Employee & Manager Request Screens
+### 7.6 Pseudo-Code — Employee & Manager Request Screens
 
-### Employee Requests Screen
+#### Employee Requests Screen
 
 ```
 WHEN Employee opens VTS home
@@ -205,8 +202,7 @@ IF Employee selects a PendingApproval request → Edit / Withdraw
         on Submit → validate → if ok save → return Home
 ```
 
-### Manager Requests Screen
-
+#### Manager Requests Screen
 ```
 WHEN Manager opens VTS home
     identify manager (SSO)
@@ -232,20 +228,17 @@ IF Manager presses Reject
     send email to employee (include comment)
     refresh both lists
 ```
-
----
-
-## DB Change Check — Summary (table)
-
-| Flow            | Table         | Change                                                        |
-|-----------------|---------------|---------------------------------------------------------------|
-| Cancel Approved | request       | update `state = 'Cancelled'`                                 |
-| Cancel Approved | grant_balance | add cancelled hours back into employee’s allowance           |
-| Cancel Approved | request_list  | insert row (from Approved → Cancelled)                       |
-| Edit Pending    | request       | modify fields: dates / hours / title / notes                 |
-| Edit Pending    | request_hist  | insert row (old version snapshot → new version snapshot)     |
-
----
-## State Machine — Request
----
+### 7.6 State Machine — Request
 <img width="500" height="500" alt="Untitled diagram-2025-11-10-140217" src="https://github.com/user-attachments/assets/9e28fad5-2eae-4524-87f7-8d2cb76ec201" />
+---
+---
+## 7. Use Case: Cancel Request
+### 7.1 Actor: 
+Employee
+### 7.2 Goal: 
+Cancel an Approved request that is in the future or recent past (previous 5 business days).
+### 7.3 Preconditions: 
+Employee is authenticated (via portal SSO). A target request exists in state Approved and within allowed window.
+### 7.4 Post Conditions: 
+Request becomes Cancelled; time allowance returned; manager notified.
+### 7.5 flowchart
