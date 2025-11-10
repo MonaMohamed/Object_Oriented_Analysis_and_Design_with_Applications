@@ -90,3 +90,158 @@ if employee.action == "new_request":
             send_email(manager)
         show_home()
 ```
+
+---
+
+## UI Sketch — Requests Pages
+
+### Employee Home Screen
+
+```
++---------------------------------------------------------------+
+| VTS : My Vacation Requests                                   |
+| Logged in as: <Employee>                                     |
++---------------------------------------------------------------+
+
+Balances:
+   Vacation..............  48 hrs
+   Sick..................  24 hrs
+   Personal..............  16 hrs
+
+---------------------------------------------------------------
+My Requests (Last 6 months → + 18 months future)
+---------------------------------------------------------------
+| Dates       | Cat | Hrs | Title              | Status          |
+|-------------|-----|-----|--------------------|-----------------|
+| 12 Mar→14   | VAC | 24h | Trip to Cairo      | PendingApproval |
+| 01 Feb      | SIC |  8h | Fever day          | Approved        |
+| 19 Jan      | PER |  4h | Kids meeting       | Cancelled       |
+---------------------------------------------------------------
+
+Actions vary by state:
+- New Request
+- Edit / Withdraw (PendingApproval)
+- Cancel (Approved + future/recent past)
+
+[ Create New Request ]
+```
+
+### Manager Home Screen
+
+```
++---------------------------------------------------------------+
+| VTS : Manager Dashboard                                       |
+| Logged in as: <Manager>                                       |
++---------------------------------------------------------------+
+
+My Own Balances:
+   Vacation..............  64 hrs
+   Sick..................  32 hrs
+   Personal..............  16 hrs
+
+---------------------------------------------------------------
+My Own Requests (same as Employee)
+---------------------------------------------------------------
+
+===============================================================
+Pending Approvals (direct reports)
+===============================================================
+| Emp Name   | Dates     | Cat | Hrs | Title         | Actions        |
+|------------|-----------|-----|-----|---------------|----------------|
+| John Emp   | 12→14 Mar | VAC | 24h | Trip to Cairo | Approve Reject |
+| Mary Emp   | 28 Feb    | PER |  8h | Family event  | Approve Reject |
+---------------------------------------------------------------
+
+Reject requires comment entry (modal)
+```
+---
+
+## Pseudo-Code — Employee & Manager Request Screens
+
+### Employee Requests Screen
+
+```
+WHEN Employee opens VTS home
+    identify employee (SSO)
+    load balances
+    load all requests (−6 months .. +18 months)
+    display table + balances
+
+IF Employee clicks "New Request"
+    show New-Request form
+
+    WHEN Submit pressed
+        collect category, dates, hours, title, notes
+        IF required fields missing → show validation errors → STOP
+
+        run rules engine
+        IF rule failure → show errors → STOP
+
+        save Request (status = PendingSubmission)
+
+        IF employee level requires approval
+            update status → PendingApproval
+            send email to manager(s)
+        ELSE
+            update status → Approved
+
+        redirect to Home (summary refreshed)
+END IF
+
+IF Employee selects an Approved (future) request → Cancel flow
+    show “Confirm Cancel?”
+    IF Confirm
+        update status → Cancelled
+        restore hours back to balances
+        send email to manager
+        return to Home
+
+IF Employee selects a PendingApproval request → Edit / Withdraw
+    IF Withdraw chosen
+        confirm
+        IF Confirm → status = Withdrawn → return Home
+    ELSE
+        show edit form
+        on Submit → validate → if ok save → return Home
+```
+
+### Manager Requests Screen
+
+```
+WHEN Manager opens VTS home
+    identify manager (SSO)
+    load manager’s own balances + requests
+    load all pending approval requests for direct reports
+    display 2 sections:
+        My Requests
+        Pending Approvals
+
+FOR each row in Pending Approvals
+    showing [Approve] [Reject]
+
+IF Manager presses Approve
+    confirm
+    change request status → Approved
+    adjust balances for employee
+    send email to employee
+    refresh both lists
+
+IF Manager presses Reject
+    prompt for comment (required)
+    change request status → Rejected
+    send email to employee (include comment)
+    refresh both lists
+```
+
+---
+
+## DB Change Check — Summary (table)
+
+| Flow            | Table         | Change                                                        |
+|-----------------|---------------|---------------------------------------------------------------|
+| Cancel Approved | request       | update `state = 'Cancelled'`                                 |
+| Cancel Approved | grant_balance | add cancelled hours back into employee’s allowance           |
+| Cancel Approved | request_list  | insert row (from Approved → Cancelled)                       |
+| Edit Pending    | request       | modify fields: dates / hours / title / notes                 |
+| Edit Pending    | request_hist  | insert row (old version snapshot → new version snapshot)     |
+
