@@ -245,3 +245,7 @@ IF Manager presses Reject
 | Edit Pending    | request       | modify fields: dates / hours / title / notes                 |
 | Edit Pending    | request_hist  | insert row (old version snapshot → new version snapshot)     |
 
+---
+## State Machine — Request
+---
+<img width="500" height="500" alt="Untitled diagram-2025-11-10-140217" src="https://github.com/user-attachments/assets/9e28fad5-2eae-4524-87f7-8d2cb76ec201" />
