@@ -266,10 +266,10 @@ Employee authenticated; target request is PendingApproval.
 If edits pass validation → saved; if withdraw → state Withdrawn; home refreshed.
 
 ### 9.5 Flowchart
-<img width="481" height="651" alt="Screenshot 2025-11-10 164831" src="https://github.com/user-attachments/assets/6bc5d4cc-2210-4dd4-bfd3-4f29f1e29dbd" />
+<img width="567" height="758" alt="Screenshot 2025-11-10 165148" src="https://github.com/user-attachments/assets/9874f072-ab93-47ef-8986-7c78c20d29c0" />
 
 ### 9.6 Sequence Diagram
-<img width="567" height="758" alt="Screenshot 2025-11-10 165148" src="https://github.com/user-attachments/assets/9874f072-ab93-47ef-8986-7c78c20d29c0" />
+<img width="549" height="763" alt="Screenshot 2025-11-10 165001" src="https://github.com/user-attachments/assets/99448b84-0e08-4ee2-9209-a7153b7a8fba" />
 
 ---
 ## 10. DB Change Check — Summary (table)
